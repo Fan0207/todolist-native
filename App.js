@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+import { Alert } from "react-native";
 
 import {
   FlatList,
@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -24,20 +25,41 @@ import { MaterialIcons } from "@expo/vector-icons";
   }
 */
 //render() {
+printPDF = () => {
+  console.log("printpdf");
+};
+seeAlert = () => {
+  Alert.alert(
+    "Titre de l'alerte",
+    "Message de l'alerte",
+    [
+      {
+        text: "Annuler",
+        onPress: () => console.log("Appuyé sur annuler"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: this.printPDF },
+    ],
+    { cancelable: false }
+  );
+};
 
 function App() {
   return (
-    <FlatList
-      renderItem={({ item }) => (
-        <View style={styles.task}>
-          <Text style={styles.taskTitle}>{item.title}</Text>
-          <TouchableOpacity onPress={this.hello}>
-            <MaterialIcons name="delete" size={32} color="white" />
-          </TouchableOpacity>
-        </View>
-      )}
-      keyExtrator={(item) => item.id.toString()}
-    />
+    <>
+      <Button title="Voir mon message" onPress={seeAlert} />
+      <FlatList
+        renderItem={({ item }) => (
+          <View style={styles.task}>
+            <Text style={styles.taskTitle}>{item.title}</Text>
+            <TouchableOpacity onPress={this.hello}>
+              <MaterialIcons name="delete" size={32} color="white" />
+            </TouchableOpacity>
+          </View>
+        )}
+        keyExtrator={(item) => item.id.toString()}
+      />
+    </>
   );
 }
 
